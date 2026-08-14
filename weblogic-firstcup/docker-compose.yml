@@ -1,0 +1,12 @@
+services:
+  weblogic:
+    image: container-registry.oracle.com/middleware/weblogic:12.2.1.4
+
+    container_name: weblogic-admin
+
+    ports:
+      - "7001:7001"
+      - "9002:9002"
+
+    volumes:
+      - ./docker:/u01/oracle/properties
