@@ -4,7 +4,7 @@ The list below includes the tech stack explored within this project as well as r
 - Jakarta EE (formerly Java EE)
     - EJBs, JAX-RS, JDBC, JPA, JNDI
 - Maven (Ant)
-- Maven webapp archetype (Spring, Spring Boot, )
+- Maven webapp archetype (Spring, Spring Boot)
 
 ## Deployment and hosting
 - Weblogic (Apache Tomcat, Glassfish)
