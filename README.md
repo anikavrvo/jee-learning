@@ -10,6 +10,7 @@ Reference documentation: https://javaee.github.io/glassfish/documentation
     - I set up a simple Docker container to create a Weblogic application server from a Docker image provided on Oracle's image registry.
 4. Access the `dukes-age/webapi/dukesAge` resource from the deployed application.
 
-I am moving on from the rest of the above tutorial to have a look at Jakarta EE instead; a lot of those resources and tutorials are newer and are mostly analogous to the older Java EE material.
+I am moving on from the rest of the above tutorial to have a look at some of the newer resources for Jakarta EE instead; these are mostly analogous to the older Java EE material.
 
-## Jakarta EE (in progress)
+## jakarta-ee-application
+*In progress.*
