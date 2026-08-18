@@ -1,0 +1,53 @@
+services:
+
+  weblogic_volume_init:
+    image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-11
+    user: root
+    command: >
+      bash -c "chown -R 1000:0 /u01/oracle/user_projects/domains"
+    volumes:
+      - weblogic_hospital_auth_data:/u01/oracle/user_projects/domains
+
+  weblogic:
+    image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-11
+
+    container_name: weblogic-hospital-auth-server
+
+    ports:
+      - "7001:7001"
+      - "9002:9002"
+
+    environment:
+      ADMIN_NAME: HospitalAuthAdminServer
+      ADMIN_LISTEN_PORT: 7001
+      ADMINISTRATION_PORT: 9002
+      DOMAIN_NAME: hospital_auth_domain
+
+    volumes:
+      - weblogic_hospital_auth_data:/u01/oracle/user_projects/domains
+      - ./domain.properties:/u01/oracle/properties/domain.properties:ro
+
+    depends_on:
+      - hospital_auth_db
+
+  hospital_auth_db:
+    build:
+      context: .
+      dockerfile: DockerFile
+
+    container_name: hospital-auth-db
+
+    environment:
+      POSTGRES_DB: hospital_auth_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - hospital_auth_db:/var/lib/postgresql/data
+
+volumes:
+  weblogic_hospital_auth_data:
+  hospital_auth_db:
