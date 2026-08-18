@@ -2,7 +2,7 @@
 
 Documenting this as I go.
 
-## firstcup-tutorial
+## 1 - firstcup-tutorial (below approach not recommended)
 
 Reference documentation: https://javaee.github.io/glassfish/documentation
 
@@ -15,5 +15,9 @@ Reference documentation: https://javaee.github.io/glassfish/documentation
 4. Access the `dukes-age/webapi/dukesAge` resource from the deployed application.
 
 
-## jakarta-ee-application
-*In progress.*
+## 2 - jakarta-ee-application
+
+1. Start with Docker environment setup - up until getting a Weblogic Server and Postgres database configured with respective volumes.
+2. Spec a simple hospital authorizations project and create baseline C4 context diagrams (living docs) for reference.
+3. Specify main process flows and ERD component diagrams.
+4. 
