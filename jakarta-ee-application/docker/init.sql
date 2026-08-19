@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS authorizations.authorization_request (
     plan_id                  INT NOT NULL,
     requested_at             TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     procedure_description    TEXT NOT NULL,
-    request_status           VARCHAR(20) NOT NULL DEFAULT 'REJECTED',
+    request_status           VARCHAR(20) NOT NULL DEFAULT 'APPROVED',
     created_at               TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at               TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
