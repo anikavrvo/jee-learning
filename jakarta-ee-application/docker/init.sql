@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS member;
 CREATE SCHEMA IF NOT EXISTS plan;
-CREATE SCHEMA IF NOT EXISTS authorization;
+CREATE SCHEMA IF NOT EXISTS authorizations;
 
 CREATE OR REPLACE FUNCTION public.set_updated_at()
 RETURNS TRIGGER
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS member.member_plan (
         REFERENCES plan.plan (plan_id),
 
     CONSTRAINT ck_member_plan_status
-        CHECK (member_plan_status IN ('ACTIVE', 'SUSPENDED', 'TERMINATED')),
+        CHECK (member_plan_status IN ('ACTIVE', 'SUSPENDED', 'TERMINATED'))
 
     -- CONSTRAINT ck_member_plan_dates
     --     CHECK (
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS plan.plan_benefit (
 -- Managed authorization data
 ---------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS authorization.authorization_request (
+CREATE TABLE IF NOT EXISTS authorizations.authorization_request (
     authorization_request_id INT GENERATED ALWAYS AS IDENTITY,
     member_id                INT NOT NULL,
     plan_id                  INT NOT NULL,
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS authorization.authorization_request (
         CHECK (request_status IN ('APPROVED', 'REJECTED'))
 );
 
-CREATE TABLE IF NOT EXISTS authorization.authorization_response (
+CREATE TABLE IF NOT EXISTS authorizations.authorization_response (
     authorization_response_id INT GENERATED ALWAYS AS IDENTITY,
     authorization_request_id  INT NOT NULL,
     response_status           VARCHAR(20) NOT NULL,
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS authorization.authorization_response (
 
     CONSTRAINT fk_authorization_response_request
         FOREIGN KEY (authorization_request_id)
-        REFERENCES authorization.authorization_request (authorization_request_id),
+        REFERENCES authorizations.authorization_request (authorization_request_id),
 
     CONSTRAINT ck_authorization_response_status
         CHECK (response_status IN ('APPROVED', 'REJECTED'))
