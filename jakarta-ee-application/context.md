@@ -10,7 +10,7 @@ This project will be a simplified extrapolation on hospital cover and processes 
 ![Hospital authorizations container diagram](./docs/hospital_auth_container.drawio.png)
 
 ## Components
-
+![Database schemas](./docs/hospital_auth_database_schemas.drawio.png)
 
 ## Code
 
