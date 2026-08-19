@@ -10,6 +10,7 @@ jakarta-ee-application/
     └── ... -> application development
 ```
 
+
 # Running the project locally
 
 1. The following Docker images are required to be installed:
@@ -23,3 +24,22 @@ jakarta-ee-application/
    - `mvn clean package`
 4. Deploy WAR
    ...
+
+
+# Jakarta EE concepts
+
+| Concept              | Tool                     |
+| -------------------- | ------------------------------------ |
+| HTTP API             | JAX-RS                               |
+| REST endpoints       | `@Path`, `@GET`, `@POST`             |
+| JSON                 | JSON-B / JSON-P                      |
+| Dependency injection | CDI                                  |
+| Connection pooling   | WebLogic DataSource                  |
+| Resource lookup      | JNDI                                 |
+| Transactions         | JTA                                  |
+| Persistence          | JDBC → potentially JPA               |
+| Configuration        | WebLogic + application configuration |
+| Packaging            | WAR                                  |
+| Deployment           | WebLogic                             |
+| Build                | Maven                                |
+| Infrastructure       | Docker Compose                       |
