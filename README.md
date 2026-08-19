@@ -2,7 +2,7 @@
 
 Documenting this as I go.
 
-## 1 - firstcup-tutorial (below approach not recommended)
+## 1 - firstcup-tutorial (not recommended)
 
 Reference documentation: https://javaee.github.io/glassfish/documentation
 
