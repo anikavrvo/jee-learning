@@ -11,6 +11,7 @@ This project will be a simplified extrapolation on hospital cover and processes 
 
 ## Components
 ![Database schemas](./docs/hospital_auth_database_schemas.drawio.png)
+![Current ERD diagram](./docs/current_hospital_auth_erd.png)
 
 ## Code
 
