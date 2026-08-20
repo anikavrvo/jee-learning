@@ -11,6 +11,6 @@ public class HealthResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public HealthResponse health() {
-        return new HealthResponse("UP");
+        return new HealthResponse("UP test");
     }
 }
