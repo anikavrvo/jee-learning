@@ -5,8 +5,15 @@
   <artifactId>hospital-auths-webapp</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+
   <name>hospital-auths-webapp Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,7 +21,14 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>8.0</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
+
   <build>
     <finalName>hospital-auths-webapp</finalName>
   </build>
