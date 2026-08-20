@@ -17,7 +17,7 @@ Reference documentation: https://javaee.github.io/glassfish/documentation
 
 ## 2 - My own jakarta-ee-application (much better)
 
-> ChatGPT is a great teacher for step-by-step walkthroughs, but only once you know what you really want to do and you know how to validate its recommendations according to what you want. The roadmap below was decided before I used it as a development/learning guide.
+> ChatGPT is a great teacher for step-by-step walkthroughs, but only once you know what you really want to do and how to validate its recommendations according to what you want. The roadmap below was decided before I used it as a development/learning guide.
 
 1. Start with Docker environment setup - up until getting a Weblogic Server and Postgres database configured with respective volumes.
 2. Spec a simple hospital authorization project and initialize C4 context diagrams (living docs) for reference.
