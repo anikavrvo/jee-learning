@@ -11,9 +11,8 @@
    - `cd docker`
    - `docker compose up -d`
 5. Deploy WAR to Weblogic server:
-   - This currently happens automatically upon starting the docker environment up with docker compose.
-   - But this would have to happen manually within the Weblogic Admin console under 'Deployments' for each rebuild once the docker environment is already running.
-   - Eventually the latter scenario will also be automated with the use of a Maven build profile: `mvn clean package -Pdeploy`
+   - This happens automatically upon starting the docker environment up with docker compose.
+   - This now also happens automatically when using the following Maven profile to rebuild the project: `mvn clean package -Pdeploy`.
 
 
 # Jakarta EE concepts covered
