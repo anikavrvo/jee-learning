@@ -17,6 +17,13 @@ services:
       - "7001:7001"
       - "9002:9002"
 
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7001'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
     environment:
       ADMIN_NAME: HospitalAuthAdminServer
       ADMIN_LISTEN_PORT: 7001
@@ -26,9 +33,51 @@ services:
     volumes:
       - weblogic_hospital_auth_data:/u01/oracle/user_projects/domains
       - ./domain.properties:/u01/oracle/properties/domain.properties:ro
+      - ./deployment:/u01/deployment:ro
 
     depends_on:
-      - hospital_auth_db
+      hospital_auth_db:
+        condition: service_started
+      weblogic_volume_init:
+        condition: service_completed_successfully
+
+  weblogic_deployer:
+    image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-11
+
+    user: oracle
+
+    volumes:
+      - ./deployment:/u01/deployment:ro
+      - ./domain.properties:/u01/domain.properties:ro
+
+    depends_on:
+      weblogic:
+        condition: service_healthy
+
+    entrypoint: /bin/bash
+
+    command:
+      - -c
+      - |
+          set -e
+
+          echo "========================================"
+          echo "WebLogic deployer starting"
+          echo "========================================"
+
+          echo "Deployment directory:"
+          ls -la /u01/deployment
+
+          echo "Running WLST..."
+
+          export USER_MEM_ARGS="-Dweblogic.security.TrustKeyStore=DemoTrust -Dweblogic.security.SSL.ignoreHostnameVerification=true"
+
+          /u01/oracle/wlserver/common/bin/wlst.sh \
+            /u01/deployment/deploy.py
+
+          echo "========================================"
+          echo "WebLogic deployer finished"
+          echo "========================================"
 
   hospital_auth_db:
     build:
