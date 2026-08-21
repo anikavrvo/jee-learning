@@ -1,16 +1,20 @@
 package medaid.hospitalauths.api;
 
+import medaid.hospitalauths.dto.MemberResponse;
+import medaid.hospitalauths.service.MemberService;
+
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import medaid.hospitalauths.dto.MemberResponse;
-
-import java.util.Collections;
 
 @Path("/members")
 public class MemberResource {
+
+    @Inject
+    private MemberService memberService;
 
     @GET
     @Path("/{memberNumber}")
@@ -18,14 +22,6 @@ public class MemberResource {
     public MemberResponse getMember(
             @PathParam("memberNumber") String memberNumber) {
 
-        MemberResponse response = new MemberResponse();
-
-        response.setMemberNumber(memberNumber);
-        response.setEmail("member@example.com");
-        response.setPhone("0821234567");
-        response.setStatus("ACTIVE");
-        response.setPlans(Collections.emptyList());
-
-        return response;
+        return memberService.getMemberByMemberNumber(memberNumber);
     }
 }
