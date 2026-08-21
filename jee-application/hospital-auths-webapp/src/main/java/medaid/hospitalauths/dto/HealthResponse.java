@@ -1,4 +1,4 @@
-package medaid.hospitalauths.api;
+package medaid.hospitalauths.dto;
 
 public class HealthResponse {
 

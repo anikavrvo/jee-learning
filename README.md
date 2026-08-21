@@ -15,7 +15,7 @@ Reference documentation: https://javaee.github.io/glassfish/documentation
 4. Access the `dukes-age/webapi/dukesAge` resource from the deployed application.
 
 
-## 2 - My own jakarta-ee-application (much better)
+## 2 - My own jee-application (much better)
 
 > ChatGPT is a great teacher for step-by-step walkthroughs, but only once you know what you really want to do and how to validate its recommendations according to what you want. The roadmap below was decided before I used it as a development/learning guide.
 

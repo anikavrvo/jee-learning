@@ -5,6 +5,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import medaid.hospitalauths.dto.HealthResponse;
+
 @Path("/health")
 public class HealthResource {
 
