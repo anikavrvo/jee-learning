@@ -80,6 +80,7 @@
                     <argument>compose</argument>
                     <argument>run</argument>
                     <argument>--rm</argument>
+                    <argument>--no-deps</argument>
                     <argument>weblogic_deployer</argument>
                   </arguments>
                 </configuration>

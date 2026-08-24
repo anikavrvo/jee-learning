@@ -18,7 +18,7 @@ services:
       - "9002:9002"
 
     healthcheck:
-      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/7001'"]
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/localhost/7001'" ]
       interval: 10s
       timeout: 5s
       retries: 12
@@ -41,7 +41,7 @@ services:
         condition: service_started
       weblogic_volume_init:
         condition: service_completed_successfully
-  
+
   weblogic_datasource_init:
     image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-11
     user: root
@@ -85,7 +85,7 @@ services:
         echo "========================================"
         echo "Datasource initialization complete"
         echo "========================================"
-  
+
   weblogic_restart:
     image: docker:cli
 
@@ -127,6 +127,47 @@ services:
         echo "WebLogic restart complete"
         echo "========================================"
 
+  weblogic_datasource_activation:
+    image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-11
+
+    user: oracle
+
+    volumes:
+      - ./domain.properties:/u01/domain.properties:ro
+      - ./datasource/database.properties:/u01/database.properties:ro
+      - ./datasource/datasource.py:/u01/datasource/datasource.py:ro
+
+    depends_on:
+      weblogic_restart:
+        condition: service_completed_successfully
+      weblogic:
+        condition: service_healthy
+
+    entrypoint: /bin/bash
+
+    command:
+      - -c
+      - |
+        set -e
+
+        echo "========================================"
+        echo "WebLogic datasource activation starting"
+        echo "========================================"
+
+        echo "WLST directory:"
+        ls -la /u01/datasource
+
+        echo "Running WLST..."
+
+        export USER_MEM_ARGS="-Dweblogic.security.TrustKeyStore=DemoTrust -Dweblogic.security.SSL.ignoreHostnameVerification=true"
+
+        /u01/oracle/wlserver/common/bin/wlst.sh \
+          /u01/datasource/datasource.py
+
+        echo "========================================"
+        echo "WebLogic datasource activation finished"
+        echo "========================================"
+
   weblogic_deployer:
     image: container-registry.oracle.com/middleware/weblogic:14.1.1.0-11
 
@@ -138,7 +179,7 @@ services:
       - ./datasource/database.properties:/u01/database.properties:ro
 
     depends_on:
-      weblogic_restart:
+      weblogic_datasource_activation:
         condition: service_completed_successfully
 
     entrypoint: /bin/bash
@@ -146,25 +187,25 @@ services:
     command:
       - -c
       - |
-          set -e
+        set -e
 
-          echo "========================================"
-          echo "WebLogic deployer starting"
-          echo "========================================"
+        echo "========================================"
+        echo "WebLogic deployer starting"
+        echo "========================================"
 
-          echo "Deployment directory:"
-          ls -la /u01/deployment
+        echo "Deployment directory:"
+        ls -la /u01/deployment
 
-          echo "Running WLST..."
+        echo "Running WLST..."
 
-          export USER_MEM_ARGS="-Dweblogic.security.TrustKeyStore=DemoTrust -Dweblogic.security.SSL.ignoreHostnameVerification=true"
+        export USER_MEM_ARGS="-Dweblogic.security.TrustKeyStore=DemoTrust -Dweblogic.security.SSL.ignoreHostnameVerification=true"
 
-          /u01/oracle/wlserver/common/bin/wlst.sh \
-            /u01/deployment/deploy.py
+        /u01/oracle/wlserver/common/bin/wlst.sh \
+          /u01/deployment/deploy.py
 
-          echo "========================================"
-          echo "WebLogic deployer finished"
-          echo "========================================"
+        echo "========================================"
+        echo "WebLogic deployer finished"
+        echo "========================================"
 
   hospital_auth_db:
     build:
