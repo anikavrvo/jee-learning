@@ -4,17 +4,20 @@ import medaid.hospitalauths.dto.MemberResponse;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Collections;
 
 @ApplicationScoped
 public class MemberRepository {
 
     @Resource(lookup = "HospitalAuthsDataSource")
     private DataSource dataSource;
+
+    @Inject
+    private MemberPlanRepository memberPlanRepository;
 
     public MemberResponse findByMemberNumber(String memberNumber) {
 
@@ -42,20 +45,24 @@ public class MemberRepository {
                     resultSet.getString("member_number")
                 );
 
-                response.setEmail(
-                    resultSet.getString("email")
-                );
+                if (resultSet.getString("email") != null) {
+                    response.setEmail(
+                        resultSet.getString("email")
+                    );
+                }
 
-                response.setPhone(
-                    resultSet.getString("phone")
-                );
+                if (resultSet.getString("phone") != null) {
+                    response.setPhone(
+                        resultSet.getString("phone")
+                    );
+                }
 
                 response.setStatus(
                     resultSet.getString("member_status")
                 );
 
                 response.setPlans(
-                    Collections.emptyList()
+                    memberPlanRepository.findByMemberNumber(memberNumber)                    
                 );
 
                 return response;

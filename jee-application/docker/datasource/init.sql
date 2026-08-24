@@ -220,3 +220,16 @@ CREATE TRIGGER trg_plan_benefit_set_updated_at
     BEFORE UPDATE ON plan.plan_benefit
     FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
+
+---------------------------------------------------------------------
+-- Sample data
+---------------------------------------------------------------------
+
+INSERT INTO member.member (member_number, email, phone, member_status)
+VALUES ('M001', 'john.doe@example.com', '0882345678', 'ACTIVE');
+
+INSERT INTO plan.plan (plan_code, plan_name, plan_description, plan_status)
+VALUES ('P001', 'Basic Health Plan', 'Basic health coverage plan', 'ACTIVE');   
+
+INSERT INTO member.member_plan (member_id, plan_id, member_plan_start_date, member_plan_status)
+VALUES (1, 1, '2023-01-01', 'ACTIVE');

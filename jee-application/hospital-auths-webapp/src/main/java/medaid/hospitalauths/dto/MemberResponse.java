@@ -1,14 +1,15 @@
 package medaid.hospitalauths.dto;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MemberResponse {
 
     private String memberNumber;
-    private String email;
-    private String phone;
+    private Optional<String> email;
+    private Optional<String> phone;
     private String status;
-    private List<PlanResponse> plans;
+    private List<MemberPlanResponse> memberPlans;
 
     public MemberResponse() {
     }
@@ -22,20 +23,20 @@ public class MemberResponse {
         this.memberNumber = memberNumber;
     }
 
-    public String getEmail() {
+    public Optional<String> getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = Optional.ofNullable(email);
     }
 
-    public String getPhone() {
+    public Optional<String> getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = Optional.ofNullable(phone);
     }
 
     public String getStatus() {
@@ -46,11 +47,11 @@ public class MemberResponse {
         this.status = status;
     }
 
-    public List<PlanResponse> getPlans() {
-        return plans;
+    public List<MemberPlanResponse> getPlans() {
+        return memberPlans;
     }
 
-    public void setPlans(List<PlanResponse> plans) {
-        this.plans = plans;
+    public void setPlans(List<MemberPlanResponse> memberPlans) {
+        this.memberPlans = memberPlans;
     }
 }
