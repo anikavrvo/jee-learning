@@ -3,7 +3,7 @@
 1. The following Docker images are required to be installed:
     - container-registry.oracle.com/middleware/weblogic:14.1.1.0-11
     - postgres:14.24-alpine3.23
-2. You also need a local Docker engine to be running (starting up Docker Desktop is simplest and provides a nice interface for monitoring, logs etc.)
+2. You also need a local Docker engine to be running (using Docker Desktop / Rancher Desktop is simplest).
 3. Build application into initial WAR file:
    - `cd ../hospital-auths-webapp`
    - `mvn clean package`

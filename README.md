@@ -6,7 +6,7 @@ Documenting this as I go.
 
 Reference documentation: https://javaee.github.io/glassfish/documentation
 
-> The above docs are quite outdated and I quickly learned there is no overwhelming reason to stick with Java EE for learning the basics. The below steps are thus unnecessary if one has a surface-level understanding of creating projects with Maven archetypes and building JEE projects into deployable WAR files.
+> The above docs are quite outdated and I quickly learned there is no overwhelming reason to stick with the original docs for learning the basics. The below steps are thus unnecessary and are included purely for notability's sake.
 
 1. Create JEE webapp project from the following Maven archetype: `maven-archetype-webapp`.
 2. Follow the FirstCup tutorial for the `dukes-age` Java project and build it into a .war file.

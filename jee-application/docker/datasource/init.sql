@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS authorizations.authorization_response (
         REFERENCES authorizations.authorization_request (authorization_request_id),
 
     CONSTRAINT ck_authorization_response_status
-        CHECK (response_status IN ('APPROVED', 'REJECTED'))
+        CHECK (response_status IN ('APPROVED', 'PENDING', 'REJECTED'))
 );
 
 DROP TRIGGER IF EXISTS trg_member_set_updated_at ON member.member;

@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>Hi there - you've reached the Hospital Auths Web App :)</h2>
 </body>
 </html>
