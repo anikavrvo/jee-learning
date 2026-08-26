@@ -9,6 +9,9 @@ public class HospitalAuthorizationResponse {
     Optional<String> responseReason;
     LocalDate respondedAt;
 
+    public HospitalAuthorizationResponse() {
+    }
+
     //getters and setters
     public int getAuthorizationRequestId() {
         return authorizationRequestId;
