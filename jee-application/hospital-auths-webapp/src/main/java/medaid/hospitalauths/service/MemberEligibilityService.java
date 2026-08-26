@@ -1,7 +1,6 @@
 package medaid.hospitalauths.service;
 
-import medaid.hospitalauths.repository.MemberPlanRepository;
-import medaid.hospitalauths.repository.MemberRepository;
+import medaid.hospitalauths.repository.PlanRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -9,10 +8,9 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class MemberEligibilityService {
     @Inject
-    private MemberRepository memberRepository;
+    private PlanRepository planRepository;
 
-    @Inject
-    private MemberPlanRepository memberPlanRepository;
-
-    
+    public boolean hasHospitalBenefit(String memberNumber) {
+        return planRepository.hasHospitalBenefit(memberNumber);
+    }
 }

@@ -233,3 +233,9 @@ VALUES ('P001', 'Basic Health Plan', 'Basic health coverage plan', 'ACTIVE');
 
 INSERT INTO member.member_plan (member_id, plan_id, member_plan_start_date, member_plan_status)
 VALUES (1, 1, '2023-01-01', 'ACTIVE');
+
+INSERT INTO plan.benefit (benefit_code, benefit_name, benefit_description, benefit_status)
+VALUES ('B001', 'General Hospitalization', 'Covers general hospitalization expenses', 'ACTIVE');
+
+INSERT INTO plan.plan_benefit (plan_id, benefit_id, coverage_percentage, coverage_limit, waiting_period_days, requires_authorization)
+VALUES (1, 1, 80.00, 100000.00, 30, FALSE);
