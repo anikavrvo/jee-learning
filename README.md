@@ -22,4 +22,4 @@ Reference documentation: https://javaee.github.io/glassfish/documentation
 1. Start with Docker environment setup - up until getting a Weblogic Server and Postgres database configured with respective volumes.
 2. Spec a simple hospital authorization project and initialize C4 context diagrams (living docs) for reference.
 3. Specify main process flows and/or ERD component diagrams.
-4. Start webapp build with a simple approve/reject request flow as MVP.
+4. Start webapp build with a simple approve/reject request flow as MVP. 
