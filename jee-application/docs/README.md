@@ -14,7 +14,7 @@
    - This happens automatically upon starting the docker environment up with docker compose.
    - This now also happens automatically when using the following Maven profile to rebuild the project: `mvn clean package -Pdeploy`.
 
-A few notes on the Docker setup:
+### A few notes on the Docker setup:
 - Use `docker compose down -v` to remove all containers and associated volumes.
 - Use `docker compose up -d` to start up containers again.
 - `docker compose down -v` will remove all containers and volumes, but it *won't remove any images that were created*. This project creates a `docker-hospital_auth_db` image for the Postgres database upon first startup, and will only re-initialise the database if this image is also explicitly deleted.
