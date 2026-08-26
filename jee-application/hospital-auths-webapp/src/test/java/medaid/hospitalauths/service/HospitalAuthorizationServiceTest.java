@@ -48,14 +48,14 @@ public class HospitalAuthorizationServiceTest {
         HospitalAuthorizationResponse response = service.authorizeMember("M001");
 
         assertEquals(AuthorizationRequestStatus.REJECTED.name(), response.getResponseStatus());
-        verify(requestRepository, never()).createForMember(any(), any());
+        verify(requestRepository, never()).createForMember(any(), any(), any());
         verify(responseRepository, never()).createResponseForRequest(any(Integer.class), any(), any(), any());
     }
 
     @Test
     public void createsRequestThenRejectsWithoutHospitalBenefit() {
         when(validationService.validateMember("M001")).thenReturn(true);
-        when(requestRepository.createForMember("M001", "Hospital authorization")).thenReturn(7);
+        when(requestRepository.createForMember("M001", "Hospital authorization", "REJECTED")).thenReturn(7);
         when(eligibilityService.hasHospitalBenefit("M001")).thenReturn(false);
 
         HospitalAuthorizationResponse response = service.authorizeMember("M001");
@@ -68,7 +68,7 @@ public class HospitalAuthorizationServiceTest {
     @Test
     public void createsAndPersistsApprovedResponse() {
         when(validationService.validateMember("M001")).thenReturn(true);
-        when(requestRepository.createForMember("M001", "Hospital authorization")).thenReturn(7);
+        when(requestRepository.createForMember("M001", "Hospital authorization", "APPROVED")).thenReturn(7);
         when(eligibilityService.hasHospitalBenefit("M001")).thenReturn(true);
 
         HospitalAuthorizationResponse response = service.authorizeMember("M001");
@@ -81,7 +81,7 @@ public class HospitalAuthorizationServiceTest {
             7, AuthorizationRequestStatus.APPROVED.name(), Optional.empty(), response.getRespondedAt());
         InOrder order = inOrder(validationService, requestRepository, eligibilityService);
         order.verify(validationService).validateMember("M001");
-        order.verify(requestRepository).createForMember("M001", "Hospital authorization");
         order.verify(eligibilityService).hasHospitalBenefit("M001");
+        order.verify(requestRepository).createForMember("M001", "Hospital authorization", "APPROVED");
     }
 }

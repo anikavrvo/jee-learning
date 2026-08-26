@@ -13,11 +13,11 @@ public class AuthorizationRequestRepository {
     @Resource(lookup = "HospitalAuthsDataSource")
     private DataSource dataSource;
 
-    public int createForMember(String memberNumber, String procedureDescription) {
+    public int createForMember(String memberNumber, String procedureDescription, String requestStatus) {
         String sql =
             "INSERT INTO authorizations.authorization_request " +
-            "(member_id, plan_id, procedure_description) " +
-            "SELECT m.member_id, mp.plan_id, ? " +
+            "(member_id, plan_id, procedure_description, request_status) " +
+            "SELECT m.member_id, mp.plan_id, ?, ? " +
             "FROM member.member AS m " +
             "JOIN member.member_plan AS mp ON m.member_id = mp.member_id " +
             "WHERE m.member_number = ? " +
@@ -30,7 +30,8 @@ public class AuthorizationRequestRepository {
             PreparedStatement statement = connection.prepareStatement(sql)
         ) {
             statement.setString(1, procedureDescription);
-            statement.setString(2, memberNumber);
+            statement.setString(2, requestStatus);
+            statement.setString(3, memberNumber);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (!resultSet.next()) {

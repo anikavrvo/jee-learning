@@ -2,6 +2,7 @@ package medaid.hospitalauths.service;
 
 import medaid.hospitalauths.dto.HospitalAuthorizationResponse;
 import medaid.hospitalauths.common.AuthorizationRequestStatus;
+import medaid.hospitalauths.common.AuthorizationResponseStatus;
 import medaid.hospitalauths.repository.AuthorizationRequestRepository;
 import medaid.hospitalauths.repository.AuthorizationResponseRepository;
 
@@ -30,24 +31,30 @@ public class HospitalAuthorizationService {
         HospitalAuthorizationResponse response = new HospitalAuthorizationResponse();
 
         if (!memberValidationService.validateMember(memberNumber)) {
-            response.setResponseStatus(AuthorizationRequestStatus.REJECTED.name());
+            response.setResponseStatus(AuthorizationResponseStatus.REJECTED.name());
             response.setResponseReason(Optional.of("Member does not exist or has no plans"));
             return response;
         }
 
-        int authorizationRequestId = authorizationRequestRepository.createForMember(
-            memberNumber,
-            procedureDescription
-        );
-        response.setAuthorizationRequestId(authorizationRequestId);
-
         if (!memberEligibilityService.hasHospitalBenefit(memberNumber)) {
-            response.setResponseStatus(AuthorizationRequestStatus.REJECTED.name());
+            response.setResponseStatus(AuthorizationResponseStatus.REJECTED.name());
             response.setResponseReason(Optional.of("Member has no hospital benefit"));
+            int authorizationRequestId = authorizationRequestRepository.createForMember(
+                memberNumber,
+                procedureDescription,
+                AuthorizationRequestStatus.REJECTED.name()
+            );
+            response.setAuthorizationRequestId(authorizationRequestId);
             return response;
         }
 
-        response.setResponseStatus(AuthorizationRequestStatus.APPROVED.name());
+        int authorizationRequestId = authorizationRequestRepository.createForMember(
+                memberNumber,
+                procedureDescription,
+                AuthorizationRequestStatus.APPROVED.name()
+            );
+        response.setAuthorizationRequestId(authorizationRequestId);
+        response.setResponseStatus(AuthorizationResponseStatus.APPROVED.name());
         response.setResponseReason(Optional.empty());
         response.setRespondedAt(LocalDate.now());
 

@@ -28,8 +28,9 @@ public class AuthorizationRequestRepositoryTest {
         AuthorizationRequestRepository repository = new AuthorizationRequestRepository();
         RepositoryTestSupport.injectDataSource(repository, dataSource);
 
-        assertEquals(12, repository.createForMember("M001", "Hospital authorization"));
+        assertEquals(12, repository.createForMember("M001", "Hospital authorization", "APPROVED"));
         verify(statement).setString(1, "Hospital authorization");
-        verify(statement).setString(2, "M001");
+        verify(statement).setString(2, "APPROVED");
+        verify(statement).setString(3, "M001");
     }
 }
