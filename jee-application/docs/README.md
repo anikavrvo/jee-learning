@@ -18,6 +18,7 @@
 - Use `docker compose down -v` to remove all containers and associated volumes.
 - Use `docker compose up -d` to start up containers again.
 - `docker compose down -v` will remove all containers and volumes, but it *won't remove any images that were created*. This project creates a `docker-hospital_auth_db` image for the Postgres database upon first startup, and will only re-initialise the database if this image is also explicitly deleted.
+- Any data created after initialisation, however, will not be persisted when `docker compose down -v` is run.
 
 
 # Jakarta EE concepts covered
